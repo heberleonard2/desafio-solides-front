@@ -13,7 +13,7 @@ export default function Home() {
           <form>
             <Input type="email" name="email" label="Email address" />
             <Input type="password" name="password" label="Password" />
-            <Button type="submit">Sign In</Button>
+            <Button type="submit">Sign in</Button>
           </form>
 
           <p>

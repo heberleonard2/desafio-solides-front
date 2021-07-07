@@ -14,7 +14,7 @@ export default function SignUp() {
             <Input type="text" name="name" label="First name" />
             <Input type="email" name="email" label="Email address" />
             <Input type="password" name="password" label="Password" />
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit">Sign up</Button>
           </form>
 
           <p>
