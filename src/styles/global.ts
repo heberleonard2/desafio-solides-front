@@ -23,6 +23,10 @@ html, body, #__next{
   }
 }
 
+body{
+  background-color: ${props => props.theme.colors.lightGray};
+}
+
 body,
 input,
 textarea,
@@ -34,6 +38,7 @@ button {
 
 button {
   cursor: pointer;
+  font-weight:600;
 }
 
 a {

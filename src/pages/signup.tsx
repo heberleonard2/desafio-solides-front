@@ -1,25 +1,26 @@
 import Link from 'next/link'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
-import { Container, Content, Logo } from '../styles/pages/Home'
+import { Container, Content, Logo } from '../styles/pages/Signup'
 
-export default function Home() {
+export default function SignUp() {
   return (
     <Container>
       <Content>
         <Logo />
-        <h2>Sign in to your account</h2>
+        <h2>Create your account</h2>
         <div>
           <form>
+            <Input type="text" name="name" label="First name" />
             <Input type="email" name="email" label="Email address" />
             <Input type="password" name="password" label="Password" />
-            <Button type="submit">Sign In</Button>
+            <Button type="submit">Sign Up</Button>
           </form>
 
           <p>
-            Dont have account?{' '}
-            <Link href="/signup">
-              <a>Sign up now</a>
+            Already have an account?{' '}
+            <Link href="/">
+              <a>Sign in now</a>
             </Link>
           </p>
         </div>
