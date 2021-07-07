@@ -10,7 +10,6 @@
     "standard",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "prettier/standard",
     "next",
     "next/core-web-vitals"
   ],

@@ -3,5 +3,5 @@ export default function Home() {
     <div>
       <h1>Desafio Sólides</h1>
     </div>
-  );
+  )
 }
