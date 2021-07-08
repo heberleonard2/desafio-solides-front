@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <NextNprogress
-        color="#6D72F0"
+        color={theme.colors.purple}
         startPosition={0.3}
         stopDelayMs={200}
         height={3}

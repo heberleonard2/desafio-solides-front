@@ -1,20 +1,78 @@
 import Link from 'next/link'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
-import { Container, Content, Logo } from '../styles/pages/Signup'
+import { Container, Content, Logo } from '../styles/pages/SignUp'
+
+interface SignUpFormData {
+  name: string
+  email: string
+  password: string
+  passwordConfirmation: string
+}
+
+const signUpFormSchema = yup.object().shape({
+  name: yup.string().required('First name is required'),
+  email: yup.string().required('E-mail is required').email('Invalid e-mail'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'At least 6 characters'),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([null, yup.ref('password')], 'Passwords must be the same')
+})
 
 export default function SignUp() {
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(signUpFormSchema)
+  })
+  const errors = formState.errors
+
+  const handleSignUp: SubmitHandler<SignUpFormData> = async (values, event) => {
+    event?.preventDefault()
+    await new Promise(resolve => setTimeout(resolve, 2000))
+
+    console.log(values)
+  }
+
   return (
     <Container>
       <Content>
         <Logo />
         <h2>Create your account</h2>
         <div>
-          <form>
-            <Input type="text" name="name" label="First name" />
-            <Input type="email" name="email" label="Email address" />
-            <Input type="password" name="password" label="Password" />
-            <Button type="submit">Sign up</Button>
+          <form onSubmit={handleSubmit(handleSignUp)}>
+            <Input
+              type="text"
+              label="First name"
+              error={errors.name}
+              {...register('name')}
+            />
+            <Input
+              type="email"
+              label="E-mail address"
+              error={errors.email}
+              {...register('email')}
+            />
+            <Input
+              type="password"
+              label="Password"
+              error={errors.password}
+              {...register('password')}
+            />
+            <Input
+              type="password"
+              label="Confirm password"
+              error={errors.passwordConfirmation}
+              {...register('passwordConfirmation')}
+            />
+
+            <Button type="submit" isLoading={formState.isSubmitting}>
+              Sign up
+            </Button>
           </form>
 
           <p>

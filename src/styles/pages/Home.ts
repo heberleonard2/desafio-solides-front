@@ -3,7 +3,7 @@ import { SiClockify } from 'react-icons/si'
 import { shade } from 'polished'
 
 export const Container = styled.main`
-  height: 100%;
+  min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,20 +14,24 @@ export const Content = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 30rem;
-  padding: 0 1.5rem;
+  padding: 1.5rem;
   animation: fadeIn 0.5s ease;
 
   h2 {
     margin: 1.75rem 0;
     color: ${props => props.theme.colors.lightBlack};
+    text-align: center;
   }
-  div {
+  & > div {
     width: 100%;
     background: ${props => props.theme.colors.white};
     padding: 2.5rem;
     border-radius: 0.5rem;
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     form {
+      display: flex;
+      flex-direction: column;
+
       button {
         margin-top: 0.5rem;
       }
