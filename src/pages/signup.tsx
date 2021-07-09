@@ -48,7 +48,11 @@ export default function SignUp() {
   return (
     <Container>
       <Content>
-        <Logo />
+        <Link href="/">
+          <a>
+            <Logo />
+          </a>
+        </Link>
         <h2>Create your account</h2>
         <div>
           <form onSubmit={handleSubmit(handleSignUp)}>

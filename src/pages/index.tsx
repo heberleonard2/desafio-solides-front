@@ -60,7 +60,7 @@ export default function Home() {
           </form>
 
           <p>
-            Dont have account?{' '}
+            Dont have an account?{' '}
             <Link href="/signup">
               <a>Sign up now</a>
             </Link>
