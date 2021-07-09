@@ -6,6 +6,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { Container, Content, Logo } from '../styles/pages/Home'
+import { useAuth } from '../hooks/useAuth'
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
 
 interface SignInFormData {
   email: string
@@ -18,14 +21,18 @@ const signInFormSchema = yup.object().shape({
 })
 
 export default function Home() {
+  const { signIn } = useAuth()
+
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInFormSchema)
   })
   const errors = formState.errors
-  const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
-    event?.preventDefault()
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    console.log(values)
+
+  const handleSignIn: SubmitHandler<SignInFormData> = async ({
+    email,
+    password
+  }) => {
+    await signIn({ email, password })
   }
 
   return (
@@ -62,4 +69,21 @@ export default function Home() {
       </Content>
     </Container>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { 'solides.token': token } = parseCookies(ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/dashboard',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

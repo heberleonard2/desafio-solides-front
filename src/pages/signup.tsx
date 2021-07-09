@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { Container, Content, Logo } from '../styles/pages/SignUp'
+import { useAuth } from '../hooks/useAuth'
 
 interface SignUpFormData {
   name: string
@@ -26,16 +27,22 @@ const signUpFormSchema = yup.object().shape({
 })
 
 export default function SignUp() {
+  const { signUp } = useAuth()
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signUpFormSchema)
   })
   const errors = formState.errors
 
-  const handleSignUp: SubmitHandler<SignUpFormData> = async (values, event) => {
-    event?.preventDefault()
-    await new Promise(resolve => setTimeout(resolve, 2000))
-
-    console.log(values)
+  const handleSignUp: SubmitHandler<SignUpFormData> = async ({
+    name,
+    email,
+    password
+  }) => {
+    await signUp({
+      name,
+      email,
+      password
+    })
   }
 
   return (

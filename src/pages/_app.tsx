@@ -1,21 +1,24 @@
 import NextNprogress from 'nextjs-progressbar'
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from 'styled-components'
-
+import { ToastContainer } from 'react-toastify'
 import GlobalStyle from '../styles/global'
 import theme from '../styles/theme'
+import { progressConfig } from '../utils/progressBar'
+import { toastConfig } from '../utils/toast'
+import { AuthProvider } from '../hooks/useAuth'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
-      <NextNprogress
-        color={theme.colors.purple}
-        startPosition={0.3}
-        stopDelayMs={200}
-        height={3}
-      />
-      <Component {...pageProps} />
-      <GlobalStyle />
+      <AuthProvider>
+        <Component {...pageProps} />
+
+        <GlobalStyle />
+
+        <NextNprogress {...progressConfig} />
+        <ToastContainer {...toastConfig} />
+      </AuthProvider>
     </ThemeProvider>
   )
 }
