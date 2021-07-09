@@ -62,7 +62,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       setCookie(undefined, 'solides.token', token, {
-        maxAge: 60 * 60 * 24 * 7 // 7 days
+        maxAge: 60 * 60 * 24 * 6 // 6 days
       })
 
       api.defaults.headers.Authorization = `Bearer ${token}`

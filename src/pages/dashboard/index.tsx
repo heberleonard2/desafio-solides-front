@@ -4,6 +4,8 @@ import { useAuth } from '../../hooks/useAuth'
 import { parseCookies } from 'nookies'
 import { api } from '../../services/api'
 
+import { DashboardContainer } from '../../components/DashboardContainer'
+
 export default function Dashboard() {
   const { user, signOut } = useAuth()
 
@@ -16,9 +18,11 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1>Olá, {user?.name}</h1>
-      <p>{user?.email}</p>
-      <button onClick={handleSignOut}>Logout</button>
+      <DashboardContainer>
+        <h1>Olá, {user?.name}</h1>
+        <p>{user?.email}</p>
+        <button onClick={handleSignOut}>Logout</button>
+      </DashboardContainer>
     </>
   )
 }

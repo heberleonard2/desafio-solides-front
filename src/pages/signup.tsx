@@ -4,7 +4,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
-import { Container, Content, Logo } from '../styles/pages/SignUp'
+import { Container, Content, Logo } from '../styles/pages/signup'
 import { useAuth } from '../hooks/useAuth'
 
 interface SignUpFormData {
@@ -58,25 +58,29 @@ export default function SignUp() {
           <form onSubmit={handleSubmit(handleSignUp)}>
             <Input
               type="text"
-              label="First name"
+              label="Name"
+              placeholder="Your name"
               error={errors.name}
               {...register('name')}
             />
             <Input
               type="email"
-              label="E-mail address"
+              label="Email"
+              placeholder="Your email"
               error={errors.email}
               {...register('email')}
             />
             <Input
               type="password"
               label="Password"
+              placeholder="Your password"
               error={errors.password}
               {...register('password')}
             />
             <Input
               type="password"
               label="Confirm password"
+              placeholder="Confirm password"
               error={errors.passwordConfirmation}
               {...register('passwordConfirmation')}
             />

@@ -36,7 +36,10 @@ button {
   font: 400 1rem 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
+label{
+  font-weight:500;
+  font-size:15px;
+}
 button {
   cursor: pointer;
   font-weight:600;

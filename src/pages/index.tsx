@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
-import { Container, Content, Logo } from '../styles/pages/Home'
+import { Container, Content, Logo } from '../styles/pages/home'
 import { useAuth } from '../hooks/useAuth'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
@@ -44,12 +44,14 @@ export default function Home() {
           <form onSubmit={handleSubmit(handleSignIn)}>
             <Input
               type="email"
-              label="E-mail address"
+              placeholder="Your email"
+              label="Email"
               error={errors.email}
               {...register('email')}
             />
             <Input
               type="password"
+              placeholder="Your password"
               label="Password"
               error={errors.password}
               {...register('password')}
