@@ -143,7 +143,7 @@ export default function Dashboard() {
                     handleSubmitReport({ description: 'Checkout' })
                   }
                 >
-                  <ImArrowDownLeft />
+                  <ImArrowUpRight />
                   Checkout
                 </ButtonReport>
               </>
