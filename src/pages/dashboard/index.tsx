@@ -98,17 +98,28 @@ export default function Dashboard() {
             <h1>Hi, {user?.name}</h1>
             <p>{selectedDateAsText}</p>
           </div>
-          {timeReportsWithFormatDate.length > 0 ? (
-            <ButtonReport onClick={handleOpenReportModal}>
-              <AiOutlineClockCircle />
-              Register Time
-            </ButtonReport>
-          ) : (
+
+          {timeReportsWithFormatDate.length === 0 ? (
             <ButtonReport
               onClick={() => handleSubmitReport({ description: 'Check-in' })}
             >
               <AiOutlineClockCircle />
               Check-in
+            </ButtonReport>
+          ) : timeReportsWithFormatDate[timeReportsWithFormatDate.length - 1]
+              .type === 'exit' ? (
+            <ButtonReport
+              onClick={() =>
+                handleSubmitReport({ description: 'Back to work' })
+              }
+            >
+              <ImArrowDownLeft />
+              Back to work
+            </ButtonReport>
+          ) : (
+            <ButtonReport onClick={handleOpenReportModal}>
+              <AiOutlineClockCircle />
+              Register Time
             </ButtonReport>
           )}
         </RegisterContainer>

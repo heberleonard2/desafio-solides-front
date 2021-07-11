@@ -24,6 +24,12 @@ export const RegisterContainer = styled.div`
   div {
     h1 {
       font-size: 2rem;
+      @media (max-width: 400px) {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 200px;
+      }
     }
     p {
       font-size: 1.5rem;
