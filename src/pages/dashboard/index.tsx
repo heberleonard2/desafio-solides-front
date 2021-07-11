@@ -1,10 +1,11 @@
 import { GetServerSideProps } from 'next'
 import { useCallback, useEffect, useState } from 'react'
 import { parseCookies } from 'nookies'
-import { useAuth } from '../../hooks/useAuth'
 import Modal from 'react-modal'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+
+import { useAuth } from '../../hooks/useAuth'
 
 import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
@@ -19,7 +20,9 @@ import {
 import { Entrance, Exit } from '../../styles/pages/dashboard/historic'
 import { ImArrowDownLeft, ImArrowUpRight } from 'react-icons/im'
 import { useTimeReport } from '../../hooks/useTimeReport'
-import { AiOutlineClockCircle } from 'react-icons/ai'
+import { AiOutlineClockCircle, AiFillDelete } from 'react-icons/ai'
+
+import { api } from '../../services/api'
 
 type ReportInput = {
   description: string
@@ -34,7 +37,10 @@ const createReportFormSchema = yup.object().shape({
 export default function Dashboard() {
   const { user } = useAuth()
   const {
+    selectedDate,
     setSelectedDate,
+    setReports,
+    deleteReport,
     selectedDateAsText,
     timeReportsWithFormatDate,
     createReport
@@ -49,7 +55,7 @@ export default function Dashboard() {
     setIsReportModalOpen(false)
   }, [])
 
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(createReportFormSchema)
   })
 
@@ -59,11 +65,27 @@ export default function Dashboard() {
     setSelectedDate(new Date())
   }, [setSelectedDate])
 
+  useEffect(() => {
+    console.log('oi index')
+    api
+      .get(`/worktime`, {
+        params: {
+          date: new Date().toISOString()
+        }
+      })
+      .then(response => setReports(response.data))
+  }, [selectedDate, setReports])
+
   const handleSubmitReport: SubmitHandler<ReportInput> = async ({
     description
   }) => {
     createReport({ description })
     handleCloseReportModal()
+    reset()
+  }
+
+  function handleDeleteReport(id: string) {
+    deleteReport(id)
   }
 
   return (
@@ -75,14 +97,23 @@ export default function Dashboard() {
             <h1>Hi, {user?.name}</h1>
             <p>{selectedDateAsText}</p>
           </div>
-          <ButtonReport onClick={handleOpenReportModal}>
-            <AiOutlineClockCircle />
-            Register Hour
-          </ButtonReport>
+          {timeReportsWithFormatDate.length ? (
+            <ButtonReport onClick={handleOpenReportModal}>
+              <AiOutlineClockCircle />
+              Register Hour
+            </ButtonReport>
+          ) : (
+            <ButtonReport
+              onClick={() => handleSubmitReport({ description: 'Check-in' })}
+            >
+              <AiOutlineClockCircle />
+              Check-in
+            </ButtonReport>
+          )}
         </RegisterContainer>
 
         <ReportsContainer>
-          {timeReportsWithFormatDate.map(report => (
+          {timeReportsWithFormatDate.map((report, index, array) => (
             <div key={report._id}>
               {report.type === 'entrance' ? (
                 <Entrance>
@@ -97,6 +128,11 @@ export default function Dashboard() {
                 <h3>{report.createdAt}</h3>
                 <p>{report.description}</p>
               </section>
+              {array.length - 1 === index && (
+                <button onClick={() => handleDeleteReport(report._id)}>
+                  <AiFillDelete />
+                </button>
+              )}
             </div>
           ))}
         </ReportsContainer>

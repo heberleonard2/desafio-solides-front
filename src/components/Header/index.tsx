@@ -1,15 +1,20 @@
 import Link from 'next/link'
+import { useCallback } from 'react'
 import { FiLogOut } from 'react-icons/fi'
 import { useAuth } from '../../hooks/useAuth'
+import { useTimeReport } from '../../hooks/useTimeReport'
 import { ActiveLink } from '../ActiveLink'
 
 import { Container, Logo, Logout } from './styles'
 export function Header() {
   const { signOut } = useAuth()
+  const { setReports } = useTimeReport()
 
-  function handleSignOut() {
+  const handleSignOut = useCallback(() => {
     signOut()
-  }
+    setReports([])
+  }, [signOut, setReports])
+
   return (
     <>
       <Container>

@@ -1,6 +1,11 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
 import DayPicker, { DayModifiers } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
+import { useTimeReport } from '../../hooks/useTimeReport'
+import { api } from '../../services/api'
+
 import { Header } from '../../components/Header'
 import {
   Container,
@@ -10,17 +15,26 @@ import {
   Exit
 } from '../../styles/pages/dashboard/historic'
 import { ImArrowDownLeft, ImArrowUpRight } from 'react-icons/im'
-import { useTimeReport } from '../../hooks/useTimeReport'
-import { GetServerSideProps } from 'next'
-import { parseCookies } from 'nookies'
 
 export default function Historic() {
   const {
     selectedDate,
     setSelectedDate,
+    setReports,
     selectedDateAsText,
     timeReportsWithFormatDate
   } = useTimeReport()
+
+  useEffect(() => {
+    console.log('oi historico')
+    api
+      .get(`/worktime`, {
+        params: {
+          date: selectedDate.toISOString()
+        }
+      })
+      .then(response => setReports(response.data))
+  }, [selectedDate, setReports])
 
   const handleDateChange = useCallback(
     (day: Date, modifiers: DayModifiers) => {

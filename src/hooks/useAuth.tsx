@@ -95,6 +95,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function signOut() {
     try {
+      api.defaults.headers.Authorization = ''
       destroyCookie(null, 'solides.token', {
         path: '/'
       })

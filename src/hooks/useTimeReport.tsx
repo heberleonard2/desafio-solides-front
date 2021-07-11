@@ -5,7 +5,6 @@ import {
   SetStateAction,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState
 } from 'react'
@@ -28,8 +27,10 @@ type ReportInput = Omit<Report, '_id' | 'createdAt' | 'type'>
 interface TimeReportContextData {
   selectedDate: Date
   setSelectedDate: Dispatch<SetStateAction<Date>>
+  setReports: Dispatch<SetStateAction<Report[]>>
   selectedDateAsText: string
   timeReportsWithFormatDate: Report[]
+  deleteReport: (id: string) => Promise<void>
   createReport: (data: ReportInput) => Promise<void>
 }
 
@@ -40,16 +41,6 @@ const TimeReportContext = createContext<TimeReportContextData>(
 export function TimeReportProvider({ children }: TimeReportProviderProps) {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [reports, setReports] = useState<Report[]>([])
-
-  useEffect(() => {
-    api
-      .get(`/worktime`, {
-        params: {
-          date: selectedDate.toISOString()
-        }
-      })
-      .then(response => setReports(response.data))
-  }, [selectedDate])
 
   const createReport = useCallback(
     async ({ description }: ReportInput) => {
@@ -66,6 +57,19 @@ export function TimeReportProvider({ children }: TimeReportProviderProps) {
           createdAt
         }
       ])
+    },
+    [reports]
+  )
+
+  const deleteReport = useCallback(
+    async (id: string) => {
+      try {
+        await api.delete(`/worktime/${id}`)
+        const report = reports.filter(report => report._id !== id)
+        setReports(report)
+      } catch (err) {
+        console.log(id)
+      }
     },
     [reports]
   )
@@ -89,6 +93,8 @@ export function TimeReportProvider({ children }: TimeReportProviderProps) {
       value={{
         selectedDate,
         setSelectedDate,
+        setReports,
+        deleteReport,
         selectedDateAsText,
         timeReportsWithFormatDate,
         createReport

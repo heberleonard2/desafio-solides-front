@@ -1,3 +1,4 @@
+import { shade } from 'polished'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -84,6 +85,22 @@ export const ReportsContainer = styled.div`
         color: #4a525d;
       }
     }
+    button {
+      margin-left: auto;
+      border: 0;
+      outline: 0;
+      background: none;
+
+      &:hover {
+        svg {
+          color: ${props => props.theme.colors.purple};
+        }
+      }
+      svg {
+        font-size: 1.5rem;
+        color: ${props => props.theme.colors.red};
+      }
+    }
   }
 `
 
@@ -138,11 +155,13 @@ export const ButtonReport = styled.button`
   }
   svg {
     margin-right: 0.5rem;
-    @media (max-width: 400px) {
-      margin-right: 0;
-    }
   }
   &:hover {
     filter: brightness(0.9);
+  }
+  &:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0px 0px 4px 1px ${shade(0.1, '#6D72F0')};
   }
 `
