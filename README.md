@@ -1,6 +1,6 @@
-<h4 align="center">
+<h3 align="center">
   WebApp para estagiários apontarem hora de trabalho.
-</h4>
+</h3>
 <p align="center">Projeto desenvolvido para o processo seletivo de Dev React na Sólides Tecnologia.</p>
 
 <p align="center">
