@@ -12,7 +12,8 @@ import {
   Calendar,
   ReportContainer,
   Entrance,
-  Exit
+  Exit,
+  NoReports
 } from '../../styles/pages/dashboard/historic'
 import { ImArrowDownLeft, ImArrowUpRight } from 'react-icons/im'
 
@@ -60,23 +61,30 @@ export default function Historic() {
         </Calendar>
         <ReportContainer>
           <h1>{selectedDateAsText}</h1>
-          {timeReportsWithFormatDate.map(report => (
-            <div key={report._id}>
-              {report.type === 'entrance' ? (
-                <Entrance>
-                  <ImArrowDownLeft />
-                </Entrance>
-              ) : (
-                <Exit>
-                  <ImArrowUpRight />
-                </Exit>
-              )}
-              <section>
-                <h3>{report.createdAt}</h3>
-                <p>{report.description}</p>
-              </section>
-            </div>
-          ))}
+          {timeReportsWithFormatDate.length > 0 ? (
+            timeReportsWithFormatDate.map(report => (
+              <div key={report._id}>
+                {report.type === 'entrance' ? (
+                  <Entrance>
+                    <ImArrowDownLeft />
+                  </Entrance>
+                ) : (
+                  <Exit>
+                    <ImArrowUpRight />
+                  </Exit>
+                )}
+                <section>
+                  <h3>{report.createdAt}</h3>
+                  <p>{report.description}</p>
+                </section>
+              </div>
+            ))
+          ) : (
+            <NoReports>
+              <img src="/images/no-task.png" alt="no-task" />
+              <h1>There&apos;s nothing here</h1>
+            </NoReports>
+          )}
         </ReportContainer>
       </Container>
     </>

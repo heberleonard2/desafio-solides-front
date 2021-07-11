@@ -15,7 +15,8 @@ import {
   Container,
   RegisterContainer,
   ReportsContainer,
-  ButtonReport
+  ButtonReport,
+  NoReports
 } from '../../styles/pages/dashboard/home'
 import { Entrance, Exit } from '../../styles/pages/dashboard/historic'
 import { ImArrowDownLeft, ImArrowUpRight } from 'react-icons/im'
@@ -97,7 +98,7 @@ export default function Dashboard() {
             <h1>Hi, {user?.name}</h1>
             <p>{selectedDateAsText}</p>
           </div>
-          {timeReportsWithFormatDate.length ? (
+          {timeReportsWithFormatDate.length > 0 ? (
             <ButtonReport onClick={handleOpenReportModal}>
               <AiOutlineClockCircle />
               Register Hour
@@ -113,28 +114,35 @@ export default function Dashboard() {
         </RegisterContainer>
 
         <ReportsContainer>
-          {timeReportsWithFormatDate.map((report, index, array) => (
-            <div key={report._id}>
-              {report.type === 'entrance' ? (
-                <Entrance>
-                  <ImArrowDownLeft />
-                </Entrance>
-              ) : (
-                <Exit>
-                  <ImArrowUpRight />
-                </Exit>
-              )}
-              <section>
-                <h3>{report.createdAt}</h3>
-                <p>{report.description}</p>
-              </section>
-              {array.length - 1 === index && (
-                <button onClick={() => handleDeleteReport(report._id)}>
-                  <AiFillDelete />
-                </button>
-              )}
-            </div>
-          ))}
+          {timeReportsWithFormatDate.length > 0 ? (
+            timeReportsWithFormatDate.map((report, index, array) => (
+              <div key={report._id}>
+                {report.type === 'entrance' ? (
+                  <Entrance>
+                    <ImArrowDownLeft />
+                  </Entrance>
+                ) : (
+                  <Exit>
+                    <ImArrowUpRight />
+                  </Exit>
+                )}
+                <section>
+                  <h3>{report.createdAt}</h3>
+                  <p>{report.description}</p>
+                </section>
+                {array.length - 1 === index && (
+                  <button onClick={() => handleDeleteReport(report._id)}>
+                    <AiFillDelete />
+                  </button>
+                )}
+              </div>
+            ))
+          ) : (
+            <NoReports>
+              <img src="images/no-task.png" alt="no-task" />
+              <h1>Check in to get started</h1>
+            </NoReports>
+          )}
         </ReportsContainer>
       </Container>
       <Modal

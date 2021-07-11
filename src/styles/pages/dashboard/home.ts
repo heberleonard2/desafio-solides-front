@@ -58,9 +58,7 @@ export const ReportsContainer = styled.div`
     margin: 1.5rem 0;
     max-width: 500px;
   }
-  h1 {
-    padding: 1rem 2rem;
-  }
+
   div {
     display: flex;
     align-items: center;
@@ -70,6 +68,7 @@ export const ReportsContainer = styled.div`
     & + div {
       border-top: 1px solid ${props => props.theme.colors.gray};
     }
+
     section {
       margin-left: 1rem;
       display: flex;
@@ -163,5 +162,24 @@ export const ButtonReport = styled.button`
     outline: 2px solid transparent;
     outline-offset: 2px;
     box-shadow: 0px 0px 4px 1px ${shade(0.1, '#6D72F0')};
+  }
+`
+
+export const NoReports = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+
+  img {
+    width: 100%;
+    max-width: 130px;
+    height: auto;
+    margin-left: 1.5rem;
+  }
+  h1 {
+    margin-top: 2rem;
+    text-align: center;
+    color: ${props => props.theme.colors.darkPurple};
   }
 `

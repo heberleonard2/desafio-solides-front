@@ -29,7 +29,7 @@ export const ReportContainer = styled.div`
     margin: 1.5rem 0;
     max-width: 500px;
   }
-  h1 {
+  > h1 {
     padding: 1rem 2rem;
   }
   div {
@@ -41,6 +41,7 @@ export const ReportContainer = styled.div`
     & + div {
       border-top: 1px solid ${props => props.theme.colors.gray};
     }
+
     section {
       margin-left: 1rem;
       display: flex;
@@ -153,5 +154,24 @@ export const Calendar = styled.div`
   }
   .DayPicker-Weekday {
     color: ${props => props.theme.colors.black};
+  }
+`
+
+export const NoReports = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+
+  img {
+    width: 100%;
+    max-width: 130px;
+    height: auto;
+    margin-left: 1.5rem;
+  }
+  h1 {
+    margin: 2rem 0;
+    text-align: center;
+    color: ${props => props.theme.colors.darkPurple};
   }
 `
