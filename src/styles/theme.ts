@@ -6,7 +6,9 @@ const theme = {
     lightBlack: '#121120',
     black: '#000000',
     purple: '#6D72F0',
-    red: '#FF4F68'
+    darkPurple: '#3a3ea2',
+    red: '#FF4F68',
+    green: '#41d841'
   }
 }
 

@@ -62,7 +62,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       setCookie(undefined, 'solides.token', token, {
-        maxAge: 60 * 60 * 24 * 6 // 6 days
+        maxAge: 60 * 60 * 24 * 6, // 6 days
+        path: '/'
       })
 
       api.defaults.headers.Authorization = `Bearer ${token}`
@@ -94,9 +95,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   async function signOut() {
     try {
-      destroyCookie(undefined, 'solides.token')
-      await Router.push('/')
-      setUser(null)
+      destroyCookie(null, 'solides.token', {
+        path: '/'
+      })
+      Router.push('/').then(() => setUser(null))
     } catch (err) {
       toast.error(err.message)
     }
