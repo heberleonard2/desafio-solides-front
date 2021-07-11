@@ -29,7 +29,7 @@ export function Header() {
               <a>Home</a>
             </ActiveLink>
             <ActiveLink activeClassName={'active'} href="/dashboard/historic">
-              <a>Historic</a>
+              <a>Reports</a>
             </ActiveLink>
           </nav>
 
