@@ -119,7 +119,7 @@ export default function Dashboard() {
           ) : (
             <ButtonReport onClick={handleOpenReportModal}>
               <AiOutlineClockCircle />
-              Register Time
+              Take a break
             </ButtonReport>
           )}
         </RegisterContainer>
@@ -164,10 +164,10 @@ export default function Dashboard() {
         className="react-modal-content"
       >
         <ModalForm onSubmit={handleSubmit(handleSubmitReport)}>
-          <h1>Register time</h1>
+          <h1>Take a break</h1>
           <Input
             type="text"
-            placeholder="Description"
+            placeholder="Describe the reason"
             label="Description"
             error={errors.description}
             {...register('description')}

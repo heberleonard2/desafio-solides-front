@@ -56,12 +56,12 @@ export const ReportsContainer = styled.div`
 
   width: 100%;
   margin-top: 1rem;
-
-  padding: 1rem 0;
+  margin-bottom: 3rem;
+  padding-top: 1rem;
   border-radius: 0.5rem;
 
   @media (max-width: 700px) {
-    margin: 1.5rem 0;
+    margin-top: 1.5rem;
     max-width: 500px;
   }
 
