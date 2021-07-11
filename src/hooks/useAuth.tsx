@@ -62,7 +62,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       })
 
       setCookie(undefined, 'solides.token', token, {
-        maxAge: 60 * 60 * 24 * 6, // 6 days
+        maxAge: 60 * 60 * 1, // 1 hour
         path: '/'
       })
 
