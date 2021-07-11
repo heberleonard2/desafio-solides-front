@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Head from 'next/head'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -48,59 +49,64 @@ export default function SignUp() {
   }
 
   return (
-    <Container>
-      <Content>
-        <Link href="/">
-          <a>
-            <Logo />
-          </a>
-        </Link>
-        <h2>Create your account</h2>
-        <div>
-          <form onSubmit={handleSubmit(handleSignUp)}>
-            <Input
-              type="text"
-              label="Name"
-              placeholder="Your name"
-              error={errors.name}
-              {...register('name')}
-            />
-            <Input
-              type="email"
-              label="Email"
-              placeholder="Your email"
-              error={errors.email}
-              {...register('email')}
-            />
-            <Input
-              type="password"
-              label="Password"
-              placeholder="Your password"
-              error={errors.password}
-              {...register('password')}
-            />
-            <Input
-              type="password"
-              label="Confirm password"
-              placeholder="Confirm password"
-              error={errors.passwordConfirmation}
-              {...register('passwordConfirmation')}
-            />
+    <>
+      <Head>
+        <title>SignUp</title>
+      </Head>
+      <Container>
+        <Content>
+          <Link href="/">
+            <a>
+              <Logo />
+            </a>
+          </Link>
+          <h2>Create your account</h2>
+          <div>
+            <form onSubmit={handleSubmit(handleSignUp)}>
+              <Input
+                type="text"
+                label="Name"
+                placeholder="Your name"
+                error={errors.name}
+                {...register('name')}
+              />
+              <Input
+                type="email"
+                label="Email"
+                placeholder="Your email"
+                error={errors.email}
+                {...register('email')}
+              />
+              <Input
+                type="password"
+                label="Password"
+                placeholder="Your password"
+                error={errors.password}
+                {...register('password')}
+              />
+              <Input
+                type="password"
+                label="Confirm password"
+                placeholder="Confirm password"
+                error={errors.passwordConfirmation}
+                {...register('passwordConfirmation')}
+              />
 
-            <Button type="submit" isLoading={formState.isSubmitting}>
-              Sign up
-            </Button>
-          </form>
+              <Button type="submit" isLoading={formState.isSubmitting}>
+                Sign up
+              </Button>
+            </form>
 
-          <p>
-            Already have an account?{' '}
-            <Link href="/">
-              <a>Sign in now</a>
-            </Link>
-          </p>
-        </div>
-      </Content>
-    </Container>
+            <p>
+              Already have an account?{' '}
+              <Link href="/">
+                <a>Sign in now</a>
+              </Link>
+            </p>
+          </div>
+        </Content>
+      </Container>
+    </>
   )
 }
 

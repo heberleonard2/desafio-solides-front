@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Head from 'next/head'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -36,40 +37,45 @@ export default function Home() {
   }
 
   return (
-    <Container>
-      <Content>
-        <Logo />
-        <h2>Sign in to your account</h2>
-        <div>
-          <form onSubmit={handleSubmit(handleSignIn)}>
-            <Input
-              type="email"
-              placeholder="Your email"
-              label="Email"
-              error={errors.email}
-              {...register('email')}
-            />
-            <Input
-              type="password"
-              placeholder="Your password"
-              label="Password"
-              error={errors.password}
-              {...register('password')}
-            />
-            <Button type="submit" isLoading={formState.isSubmitting}>
-              Sign in
-            </Button>
-          </form>
+    <>
+      <Head>
+        <title>SignIn</title>
+      </Head>
+      <Container>
+        <Content>
+          <Logo />
+          <h2>Sign in to your account</h2>
+          <div>
+            <form onSubmit={handleSubmit(handleSignIn)}>
+              <Input
+                type="email"
+                placeholder="Your email"
+                label="Email"
+                error={errors.email}
+                {...register('email')}
+              />
+              <Input
+                type="password"
+                placeholder="Your password"
+                label="Password"
+                error={errors.password}
+                {...register('password')}
+              />
+              <Button type="submit" isLoading={formState.isSubmitting}>
+                Sign in
+              </Button>
+            </form>
 
-          <p>
-            Dont have an account?{' '}
-            <Link href="/signup">
-              <a>Sign up now</a>
-            </Link>
-          </p>
-        </div>
-      </Content>
-    </Container>
+            <p>
+              Dont have an account?{' '}
+              <Link href="/signup">
+                <a>Sign up now</a>
+              </Link>
+            </p>
+          </div>
+        </Content>
+      </Container>
+    </>
   )
 }
 

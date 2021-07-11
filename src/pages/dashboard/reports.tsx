@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
 import { parseCookies } from 'nookies'
 import DayPicker, { DayModifiers } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
@@ -47,6 +48,9 @@ export default function Historic() {
 
   return (
     <>
+      <Head>
+        <title>Dashboard | Reports</title>
+      </Head>
       <Header />
       <Container>
         <Calendar>

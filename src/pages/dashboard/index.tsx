@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next'
+import Head from 'next/head'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { parseCookies } from 'nookies'
 import Modal from 'react-modal'
@@ -96,6 +97,9 @@ export default function Dashboard() {
 
   return (
     <>
+      <Head>
+        <title>Dashboard | Home</title>
+      </Head>
       <Header />
       <Container>
         <RegisterContainer>
