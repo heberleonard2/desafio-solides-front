@@ -22,6 +22,7 @@ export const RegisterContainer = styled.div`
   border-radius: 0.5rem;
 
   div {
+    margin-right: 1rem;
     h1 {
       font-size: 2rem;
       @media (max-width: 400px) {
@@ -37,9 +38,17 @@ export const RegisterContainer = styled.div`
       margin-top: 0.5rem;
       color: ${props => props.theme.colors.purple};
     }
+
+    + div {
+      display: flex;
+
+      @media (max-width: 500px) {
+        flex-direction: column;
+      }
+    }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 800px) {
     flex-direction: column;
     align-items: flex-start;
     padding: 3rem;
@@ -152,12 +161,16 @@ export const ButtonReport = styled.button`
   height: 3rem;
   transition: filter 0.2s ease 0s;
   font-weight: 500;
-  @media (max-width: 400px) {
-    padding: 0px 1rem;
-    span {
-      display: none;
+
+  & + button {
+    margin-left: 2rem;
+    background: #ef8e00;
+
+    @media (max-width: 500px) {
+      margin-left: 0rem;
     }
   }
+
   svg {
     margin-right: 0.5rem;
   }
@@ -168,6 +181,10 @@ export const ButtonReport = styled.button`
     outline: 2px solid transparent;
     outline-offset: 2px;
     box-shadow: 0px 0px 4px 1px ${shade(0.1, '#6D72F0')};
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #8b8fff;
   }
 `
 

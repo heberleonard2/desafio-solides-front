@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { parseCookies } from 'nookies'
 import Modal from 'react-modal'
 import * as yup from 'yup'
@@ -23,6 +23,7 @@ import { Entrance, Exit } from '../../styles/pages/dashboard/historic'
 import { ImArrowDownLeft, ImArrowUpRight } from 'react-icons/im'
 import { useTimeReport } from '../../hooks/useTimeReport'
 import { AiOutlineClockCircle, AiFillDelete } from 'react-icons/ai'
+import { BsCheckCircle } from 'react-icons/bs'
 
 import { api } from '../../services/api'
 
@@ -89,6 +90,10 @@ export default function Dashboard() {
     deleteReport(id)
   }
 
+  const lastIndexTimeReports = useMemo(() => {
+    return timeReportsWithFormatDate[timeReportsWithFormatDate.length - 1]
+  }, [timeReportsWithFormatDate])
+
   return (
     <>
       <Header />
@@ -98,30 +103,48 @@ export default function Dashboard() {
             <h1>Hi, {user?.name}</h1>
             <p>{selectedDateAsText}</p>
           </div>
-
-          {timeReportsWithFormatDate.length === 0 ? (
-            <ButtonReport
-              onClick={() => handleSubmitReport({ description: 'Check-in' })}
-            >
-              <AiOutlineClockCircle />
-              Check-in
-            </ButtonReport>
-          ) : timeReportsWithFormatDate[timeReportsWithFormatDate.length - 1]
-              .type === 'exit' ? (
-            <ButtonReport
-              onClick={() =>
-                handleSubmitReport({ description: 'Back to work' })
-              }
-            >
-              <ImArrowDownLeft />
-              Back to work
-            </ButtonReport>
-          ) : (
-            <ButtonReport onClick={handleOpenReportModal}>
-              <AiOutlineClockCircle />
-              Take a break
-            </ButtonReport>
-          )}
+          <div>
+            {timeReportsWithFormatDate.length === 0 ? (
+              <ButtonReport
+                onClick={() => handleSubmitReport({ description: 'Check-in' })}
+              >
+                <AiOutlineClockCircle />
+                Check-in
+              </ButtonReport>
+            ) : lastIndexTimeReports.type === 'exit' ? (
+              <ButtonReport
+                onClick={() =>
+                  handleSubmitReport({ description: 'Back to work' })
+                }
+                disabled={lastIndexTimeReports.description === 'Checkout'}
+              >
+                {lastIndexTimeReports.description === 'Checkout' ? (
+                  <>
+                    <BsCheckCircle /> <span>End of work</span>
+                  </>
+                ) : (
+                  <>
+                    <ImArrowDownLeft /> <span>Back to work</span>
+                  </>
+                )}
+              </ButtonReport>
+            ) : (
+              <>
+                <ButtonReport onClick={handleOpenReportModal}>
+                  <AiOutlineClockCircle />
+                  Take a break
+                </ButtonReport>
+                <ButtonReport
+                  onClick={() =>
+                    handleSubmitReport({ description: 'Checkout' })
+                  }
+                >
+                  <AiOutlineClockCircle />
+                  Checkout
+                </ButtonReport>
+              </>
+            )}
+          </div>
         </RegisterContainer>
 
         <ReportsContainer>
