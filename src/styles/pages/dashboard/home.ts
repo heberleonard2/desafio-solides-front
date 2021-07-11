@@ -183,3 +183,12 @@ export const NoReports = styled.section`
     color: ${props => props.theme.colors.darkPurple};
   }
 `
+
+export const ModalForm = styled.form`
+  h1 {
+    margin-bottom: 2rem;
+  }
+  div {
+    margin-bottom: 2rem;
+  }
+`

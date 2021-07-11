@@ -75,9 +75,9 @@ export default createGlobalStyle`
     max-width:576px;
     background: ${props => props.theme.colors.white};
     margin: 0 1rem;
-    padding: 3rem;
+    padding:  4rem 3rem;
     position:relative;
-    border-radius:0.25rem;
+    border-radius:0.5rem;
     opacity: 0;
     transform: translateY(100px);
     transition: all 0.2s ease-in-out;

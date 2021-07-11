@@ -16,7 +16,8 @@ import {
   RegisterContainer,
   ReportsContainer,
   ButtonReport,
-  NoReports
+  NoReports,
+  ModalForm
 } from '../../styles/pages/dashboard/home'
 import { Entrance, Exit } from '../../styles/pages/dashboard/historic'
 import { ImArrowDownLeft, ImArrowUpRight } from 'react-icons/im'
@@ -67,7 +68,6 @@ export default function Dashboard() {
   }, [setSelectedDate])
 
   useEffect(() => {
-    console.log('oi index')
     api
       .get(`/worktime`, {
         params: {
@@ -101,7 +101,7 @@ export default function Dashboard() {
           {timeReportsWithFormatDate.length > 0 ? (
             <ButtonReport onClick={handleOpenReportModal}>
               <AiOutlineClockCircle />
-              Register Hour
+              Register Time
             </ButtonReport>
           ) : (
             <ButtonReport
@@ -152,18 +152,19 @@ export default function Dashboard() {
         overlayClassName="react-modal-overlay"
         className="react-modal-content"
       >
-        <form onSubmit={handleSubmit(handleSubmitReport)}>
+        <ModalForm onSubmit={handleSubmit(handleSubmitReport)}>
+          <h1>Register time</h1>
           <Input
             type="text"
-            placeholder="description"
+            placeholder="Description"
             label="Description"
             error={errors.description}
             {...register('description')}
           />
           <Button type="submit" isLoading={formState.isSubmitting}>
-            Submit
+            Register
           </Button>
-        </form>
+        </ModalForm>
       </Modal>
     </>
   )

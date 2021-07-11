@@ -30,7 +30,7 @@ interface AuthContextData {
   user: User | null
   signIn: (data: SignInData) => Promise<void>
   signUp: (data: SignUpData) => Promise<void>
-  signOut: () => void
+  signOut: () => Promise<void>
 }
 interface SessionResponse {
   token: string
@@ -99,7 +99,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       destroyCookie(null, 'solides.token', {
         path: '/'
       })
-      Router.push('/').then(() => setUser(null))
+      await Router.push('/')
+      setUser(null)
     } catch (err) {
       toast.error(err.message)
     }

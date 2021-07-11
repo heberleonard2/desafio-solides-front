@@ -10,8 +10,8 @@ export function Header() {
   const { signOut } = useAuth()
   const { setReports } = useTimeReport()
 
-  const handleSignOut = useCallback(() => {
-    signOut()
+  const handleSignOut = useCallback(async () => {
+    await signOut()
     setReports([])
   }, [signOut, setReports])
 

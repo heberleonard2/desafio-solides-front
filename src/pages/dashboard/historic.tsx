@@ -27,7 +27,6 @@ export default function Historic() {
   } = useTimeReport()
 
   useEffect(() => {
-    console.log('oi historico')
     api
       .get(`/worktime`, {
         params: {
