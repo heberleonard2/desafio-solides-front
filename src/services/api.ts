@@ -4,7 +4,7 @@ import { parseCookies } from 'nookies'
 const { 'solides.token': token } = parseCookies()
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3333'
+  baseURL: process.env.API_ENDPOINT
 })
 
 if (token) {
