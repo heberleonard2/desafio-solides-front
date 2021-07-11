@@ -7,7 +7,7 @@ export const api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
       ? 'localhost:3333'
-      : process.env.API_ENDPOINT
+      : process.env.HEROKU_API_ENDPOINT
 })
 
 if (token) {
