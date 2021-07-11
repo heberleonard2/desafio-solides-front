@@ -71,7 +71,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setUser(user)
       Router.push('/dashboard')
     } catch (err) {
-      toast.error('Incorrect email or password')
+      toast.error(err.response.data.error)
     }
   }
 
@@ -89,7 +89,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         })
       }
     } catch (err) {
-      toast.error('There was an error in the registration, please try again')
+      toast.error(err.response.data.error)
     }
   }
 
