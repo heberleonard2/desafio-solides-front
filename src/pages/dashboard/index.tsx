@@ -139,7 +139,7 @@ export default function Dashboard() {
                     handleSubmitReport({ description: 'Checkout' })
                   }
                 >
-                  <AiOutlineClockCircle />
+                  <ImArrowDownLeft />
                   Checkout
                 </ButtonReport>
               </>

@@ -184,7 +184,9 @@ export const ButtonReport = styled.button`
   }
   &:disabled {
     cursor: not-allowed;
-    background-color: #8b8fff;
+    background-color: transparent;
+    color: ${props => props.theme.colors.purple};
+    padding: 0;
   }
 `
 
