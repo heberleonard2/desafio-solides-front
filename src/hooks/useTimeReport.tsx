@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { api } from '../services/api'
 import { format, parseISO } from 'date-fns'
+import { toast } from 'react-toastify'
 
 interface TimeReportProviderProps {
   children: ReactNode
@@ -44,19 +45,23 @@ export function TimeReportProvider({ children }: TimeReportProviderProps) {
 
   const createReport = useCallback(
     async ({ description }: ReportInput) => {
-      const response = await api.post('/worktime', {
-        description
-      })
-      const { _id, type, createdAt } = response.data
-      setReports([
-        ...reports,
-        {
-          _id,
-          type,
-          description,
-          createdAt
-        }
-      ])
+      try {
+        const response = await api.post('/worktime', {
+          description
+        })
+        const { _id, type, createdAt } = response.data
+        setReports([
+          ...reports,
+          {
+            _id,
+            type,
+            description,
+            createdAt
+          }
+        ])
+      } catch (err) {
+        toast.error('There was an error, please try again')
+      }
     },
     [reports]
   )
@@ -68,7 +73,7 @@ export function TimeReportProvider({ children }: TimeReportProviderProps) {
         const report = reports.filter(report => report._id !== id)
         setReports(report)
       } catch (err) {
-        console.log(id)
+        toast.error('There was an error, please try again')
       }
     },
     [reports]
