@@ -7,17 +7,20 @@ import theme from '../styles/theme'
 import { progressConfig } from '../utils/progressBar'
 import { toastConfig } from '../utils/toast'
 import { AuthProvider } from '../hooks/useAuth'
+import { TimeReportProvider } from '../hooks/useTimeReport'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <Component {...pageProps} />
+        <TimeReportProvider>
+          <Component {...pageProps} />
 
-        <GlobalStyle />
+          <GlobalStyle />
 
-        <NextNprogress {...progressConfig} />
-        <ToastContainer {...toastConfig} />
+          <NextNprogress {...progressConfig} />
+          <ToastContainer {...toastConfig} />
+        </TimeReportProvider>
       </AuthProvider>
     </ThemeProvider>
   )

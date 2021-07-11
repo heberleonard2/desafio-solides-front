@@ -1,58 +1,35 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { format, parseISO } from 'date-fns'
+import { useCallback } from 'react'
 import DayPicker, { DayModifiers } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import { Header } from '../../components/Header'
-import { api } from '../../services/api'
 import {
   Container,
   Calendar,
-  Hours,
+  ReportContainer,
   Entrance,
   Exit
 } from '../../styles/pages/dashboard/historic'
 import { ImArrowDownLeft, ImArrowUpRight } from 'react-icons/im'
-
-interface WorkPoint {
-  _id: string
-  type: 'entrance' | 'exit'
-  description: string
-  createdAt: string
-}
+import { useTimeReport } from '../../hooks/useTimeReport'
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
 
 export default function Historic() {
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [workPoint, setWorkPoint] = useState<WorkPoint[]>([])
+  const {
+    selectedDate,
+    setSelectedDate,
+    selectedDateAsText,
+    timeReportsWithFormatDate
+  } = useTimeReport()
 
-  const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
-    if (modifiers.available) {
-      setSelectedDate(day)
-    }
-  }, [])
-
-  useEffect(() => {
-    api
-      .get(`/worktime`, {
-        params: {
-          date: selectedDate.toISOString()
-        }
-      })
-      .then(response => setWorkPoint(response.data))
-  }, [selectedDate])
-
-  const selectedDateAsText = useMemo(() => {
-    return format(selectedDate, "MMMM dd',' yyyy")
-  }, [selectedDate])
-
-  const workPointWithFormatDate = useMemo(() => {
-    return workPoint.map(point => {
-      const parsedDate = format(parseISO(point.createdAt), 'HH:mm:ss')
-      return {
-        ...point,
-        createdAt: parsedDate
+  const handleDateChange = useCallback(
+    (day: Date, modifiers: DayModifiers) => {
+      if (modifiers.available) {
+        setSelectedDate(day)
       }
-    })
-  }, [workPoint])
+    },
+    [setSelectedDate]
+  )
 
   return (
     <>
@@ -67,11 +44,11 @@ export default function Historic() {
             onDayClick={handleDateChange}
           />
         </Calendar>
-        <Hours>
+        <ReportContainer>
           <h1>{selectedDateAsText}</h1>
-          {workPointWithFormatDate.map(point => (
-            <div key={point._id}>
-              {point.type === 'entrance' ? (
+          {timeReportsWithFormatDate.map(report => (
+            <div key={report._id}>
+              {report.type === 'entrance' ? (
                 <Entrance>
                   <ImArrowDownLeft />
                 </Entrance>
@@ -81,13 +58,30 @@ export default function Historic() {
                 </Exit>
               )}
               <section>
-                <h3>{point.createdAt}</h3>
-                <p>{point.description}</p>
+                <h3>{report.createdAt}</h3>
+                <p>{report.description}</p>
               </section>
             </div>
           ))}
-        </Hours>
+        </ReportContainer>
       </Container>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { 'solides.token': token } = parseCookies(ctx)
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

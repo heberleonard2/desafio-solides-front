@@ -1,8 +1,10 @@
 import { GetServerSideProps } from 'next'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { parseCookies } from 'nookies'
 import { useAuth } from '../../hooks/useAuth'
-import { api } from '../../services/api'
+import Modal from 'react-modal'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Header } from '../../components/Header'
 import { Input } from '../../components/Input'
@@ -11,60 +13,58 @@ import { Button } from '../../components/Button'
 import {
   Container,
   RegisterContainer,
-  ReportsContainer
+  ReportsContainer,
+  ButtonReport
 } from '../../styles/pages/dashboard/home'
-import { Entrance, Exit, Hours } from '../../styles/pages/dashboard/historic'
+import { Entrance, Exit } from '../../styles/pages/dashboard/historic'
 import { ImArrowDownLeft, ImArrowUpRight } from 'react-icons/im'
-import { format, parseISO } from 'date-fns'
-interface WorkPoint {
-  _id: string
-  type: 'entrance' | 'exit'
-  description: string
-  createdAt: string
-}
-interface Point {
+import { useTimeReport } from '../../hooks/useTimeReport'
+import { AiOutlineClockCircle } from 'react-icons/ai'
+
+type ReportInput = {
   description: string
 }
+
+Modal.setAppElement('#__next')
+
+const createReportFormSchema = yup.object().shape({
+  description: yup.string().required('Description is required')
+})
 
 export default function Dashboard() {
   const { user } = useAuth()
-  const { register, handleSubmit, formState } = useForm({})
+  const {
+    setSelectedDate,
+    selectedDateAsText,
+    timeReportsWithFormatDate,
+    createReport
+  } = useTimeReport()
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false)
 
-  const [workPoint, setWorkPoint] = useState<WorkPoint[]>([])
+  const handleOpenReportModal = useCallback(() => {
+    setIsReportModalOpen(true)
+  }, [])
+
+  const handleCloseReportModal = useCallback(() => {
+    setIsReportModalOpen(false)
+  }, [])
+
+  const { register, handleSubmit, formState } = useForm({
+    resolver: yupResolver(createReportFormSchema)
+  })
 
   const errors = formState.errors
 
   useEffect(() => {
-    api
-      .get(`/worktime`, {
-        params: {
-          date: new Date().toISOString()
-        }
-      })
-      .then(response => setWorkPoint(response.data))
-  }, [])
+    setSelectedDate(new Date())
+  }, [setSelectedDate])
 
-  const handleSubmitPoint: SubmitHandler<Point> = async ({ description }) => {
-    api
-      .post('/worktime', {
-        description
-      })
-      .then(response => setWorkPoint([...workPoint, response.data]))
+  const handleSubmitReport: SubmitHandler<ReportInput> = async ({
+    description
+  }) => {
+    createReport({ description })
+    handleCloseReportModal()
   }
-
-  const selectedDateAsText = useMemo(() => {
-    return format(new Date(), "MMMM dd',' yyyy")
-  }, [])
-
-  const workPointWithFormatDate = useMemo(() => {
-    return workPoint.map(point => {
-      const parsedDate = format(parseISO(point.createdAt), 'HH:mm:ss')
-      return {
-        ...point,
-        createdAt: parsedDate
-      }
-    })
-  }, [workPoint])
 
   return (
     <>
@@ -72,17 +72,19 @@ export default function Dashboard() {
       <Container>
         <RegisterContainer>
           <div>
-            <h1>Olá, {user?.name}</h1>
+            <h1>Hi, {user?.name}</h1>
             <p>{selectedDateAsText}</p>
           </div>
-          <button>Fazer checkin</button>
+          <ButtonReport onClick={handleOpenReportModal}>
+            <AiOutlineClockCircle />
+            Register Hour
+          </ButtonReport>
         </RegisterContainer>
 
-        <Hours>
-          <h1></h1>
-          {workPointWithFormatDate.map(point => (
-            <div key={point._id}>
-              {point.type === 'entrance' ? (
+        <ReportsContainer>
+          {timeReportsWithFormatDate.map(report => (
+            <div key={report._id}>
+              {report.type === 'entrance' ? (
                 <Entrance>
                   <ImArrowDownLeft />
                 </Entrance>
@@ -92,25 +94,33 @@ export default function Dashboard() {
                 </Exit>
               )}
               <section>
-                <h3>{point.createdAt}</h3>
-                <p>{point.description}</p>
+                <h3>{report.createdAt}</h3>
+                <p>{report.description}</p>
               </section>
             </div>
           ))}
-        </Hours>
+        </ReportsContainer>
       </Container>
-      {/* <form onSubmit={handleSubmit(handleSubmitPoint)}>
-            <Input
-              type="tyext"
-              placeholder="description"
-              label="Description"
-              error={errors.description}
-              {...register('description')}
-            />
-            <Button type="submit" isLoading={formState.isSubmitting}>
-              Submit
-            </Button>
-          </form> */}
+      <Modal
+        closeTimeoutMS={200}
+        isOpen={isReportModalOpen}
+        onRequestClose={handleCloseReportModal}
+        overlayClassName="react-modal-overlay"
+        className="react-modal-content"
+      >
+        <form onSubmit={handleSubmit(handleSubmitReport)}>
+          <Input
+            type="text"
+            placeholder="description"
+            label="Description"
+            error={errors.description}
+            {...register('description')}
+          />
+          <Button type="submit" isLoading={formState.isSubmitting}>
+            Submit
+          </Button>
+        </form>
+      </Modal>
     </>
   )
 }

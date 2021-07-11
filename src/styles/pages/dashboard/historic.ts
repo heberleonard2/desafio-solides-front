@@ -8,13 +8,13 @@ export const Container = styled.div`
   margin-top: -6rem;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 
   @media (max-width: 700px) {
     flex-direction: column;
   }
 `
-export const Hours = styled.div`
+export const ReportContainer = styled.div`
   display: flex;
   flex-direction: column;
 

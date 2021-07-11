@@ -19,25 +19,38 @@ export const RegisterContainer = styled.div`
   padding: 3.5rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   border-radius: 0.5rem;
+
+  div {
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      color: ${props => props.theme.colors.purple};
+    }
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3rem;
+
+    button {
+      margin-top: 1.5rem;
+    }
+  }
 `
 
 export const ReportsContainer = styled.div`
-  margin-top: 2rem;
-  background: #fff;
-  padding: 3.5rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  border-radius: 0.5rem;
-`
-
-export const Hours = styled.div`
   display: flex;
   flex-direction: column;
 
   width: 100%;
-  margin-left: 2rem;
-  background: #fff;
+  margin-top: 1rem;
+
   padding: 1rem 0;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   border-radius: 0.5rem;
 
   @media (max-width: 700px) {
@@ -102,5 +115,34 @@ export const Exit = styled.span`
   svg {
     color: ${props => props.theme.colors.red};
     font-size: 1rem;
+  }
+`
+
+export const ButtonReport = styled.button`
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+  background: #5d62da;
+  border: 0px;
+  padding: 0px 2rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  height: 3rem;
+  transition: filter 0.2s ease 0s;
+  font-weight: 500;
+  @media (max-width: 400px) {
+    padding: 0px 1rem;
+    span {
+      display: none;
+    }
+  }
+  svg {
+    margin-right: 0.5rem;
+    @media (max-width: 400px) {
+      margin-right: 0;
+    }
+  }
+  &:hover {
+    filter: brightness(0.9);
   }
 `

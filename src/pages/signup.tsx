@@ -6,6 +6,8 @@ import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { Container, Content, Logo } from '../styles/pages/signup'
 import { useAuth } from '../hooks/useAuth'
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
 
 interface SignUpFormData {
   name: string
@@ -100,4 +102,21 @@ export default function SignUp() {
       </Content>
     </Container>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { 'solides.token': token } = parseCookies(ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/dashboard',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }
