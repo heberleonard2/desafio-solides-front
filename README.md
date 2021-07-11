@@ -1,12 +1,12 @@
 <h3 align="center">
-  WebApp para estagiários apontarem hora de trabalho.
+  WebApp para estagiários apontarem hora de trabalho. (Front-End)
 </h3>
 <p align="center">Projeto desenvolvido para o processo seletivo de Dev React na Sólides Tecnologia.</p>
 
 <p align="center">
-  <a href="#rocket-technologies">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#information_source-how-to-use">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#information_details">Detalhes da solução proposta</a>
+  <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#information_source-detalhes-da-solução-proposta">Detalhes da solução proposta</a>
 </p>
 
 ![App Screenshot](https://res.cloudinary.com/heberleonard/image/upload/v1626023925/image_14_ivrota.png)
@@ -62,19 +62,11 @@ $ yarn install
 
 # Rode o app
 $ yarn dev
-
-# Clone o repositório back-end
-$ git clone https://github.com/heberleonard2/desafio-solides-back
-
-# Vá para o repositório
-$ cd desafio-solides-back
-
-# Instale as dependências
-$ yarn install
-
-# Rode o app
-$ yarn dev
 ```
+
+### Back-end:
+
+O Back-end da aplicação se encontra <a href="https://github.com/heberleonard2/desafio-solides-back">nesse link</a>.
 
 ## :information_source: Detalhes da solução proposta
 
