@@ -6,7 +6,7 @@ const { 'solides.token': token } = parseCookies()
 export const api = axios.create({
   baseURL:
     process.env.NODE_ENV === 'development'
-      ? 'localhost:3000'
+      ? 'localhost:3333'
       : process.env.API_ENDPOINT
 })
 
