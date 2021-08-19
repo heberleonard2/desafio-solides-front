@@ -85,7 +85,7 @@ WebApp para estagiários apontarem hora de trabalho. Este WebApp contém:
 
 - Design responsivo
 
----
+----
 
 Made by Héber Leonard :wave: [Get in touch!](https://www.linkedin.com/in/heber-leonard/)
 
