@@ -67,7 +67,7 @@ $ yarn dev
 
 O Back-end da aplicação se encontra <a href="https://github.com/heberleonard2/time-tracking-back">nesse link</a>.
 
-## :information_source: Detalhes da solução proposta
+## :information_source: Detalhes
 
 ### Descrição geral
 
