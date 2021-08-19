@@ -1,7 +1,6 @@
 <h3 align="center">
   WebApp para estagiários apontarem hora de trabalho. (Front-End)
 </h3>
-<p align="center">Projeto desenvolvido para o processo seletivo de Dev React na Sólides Tecnologia.</p>
 
 <p align="center">
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -66,7 +65,7 @@ $ yarn dev
 
 ### Back-end:
 
-O Back-end da aplicação se encontra <a href="https://github.com/heberleonard2/desafio-solides-back">nesse link</a>.
+O Back-end da aplicação se encontra <a href="https://github.com/heberleonard2/time-tracking-back">nesse link</a>.
 
 ## :information_source: Detalhes da solução proposta
 
@@ -78,7 +77,7 @@ WebApp para estagiários apontarem hora de trabalho. Este WebApp contém:
 
 - Tela de cadastro
 
-- Autenticação JWT com <a href="https://github.com/heberleonard2/desafio-solides-back" target="_blank">Back-End feito com NodeJS e MongoDB</a>
+- Autenticação JWT com <a href="https://github.com/heberleonard2/time-tracking-back" target="_blank">Back-End feito com NodeJS e MongoDB</a>
 
 - Tela para apontar hora
 
