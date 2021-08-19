@@ -5,7 +5,7 @@
 <p align="center">
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#information_source-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#information_source-detalhes-da-solução-proposta">Detalhes da solução proposta</a>
+  <a href="#information_source-detalhes">Detalhes</a>
 </p>
 
 ![App Screenshot](https://res.cloudinary.com/heberleonard/image/upload/v1626023925/image_14_ivrota.png)
@@ -16,8 +16,8 @@
 Demo da aplicação rodando na
 <a href="https://vercel.com/" target="_blank">Vercel</a>:
 <p>
-  <a href="https://desafio-solides.vercel.app/" target="_blank">
-    https://desafio-solides.vercel.app/
+  <a href="https://time-tracking-next.vercel.app/" target="_blank">
+    https://time-tracking-next.vercel.app/
     </p>
   </a>
 </p>
@@ -51,10 +51,10 @@ Para clonar e executar esta aplicação, você precisará do [Git](https://git-s
 
 ```bash
 # Clone o repositório
-$ git clone https://github.com/heberleonard2/desafio-solides-front
+$ git clone https://github.com/heberleonard2/time-tracking-front
 
 # Vá para o repositório
-$ cd desafio-solides-front
+$ cd time-tracking-front
 
 # Instale as dependências
 $ yarn install
